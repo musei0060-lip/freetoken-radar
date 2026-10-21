@@ -1,6 +1,10 @@
 # FreeToken Radar
 
+[![Daily scan](https://github.com/musei0060-lip/freetoken-radar/actions/workflows/scan.yml/badge.svg)](https://github.com/musei0060-lip/freetoken-radar/actions/workflows/scan.yml)
+
 Track [OpenRouter](https://openrouter.ai)'s free models — and only trust the ones that are **verified**.
+
+A GitHub Actions workflow runs this scan daily (08:17 Asia/Shanghai). If an eligible model vanishes or gets repriced, or a new unverified free model appears, it opens an issue automatically — the repo's history is a real event log, not noise.
 
 Free-model lineups change without notice: models get delisted, repriced, or quietly swapped. This tool scans the public OpenRouter catalog, diffs it against a hand-verified pool, and tells you exactly what changed.
 
