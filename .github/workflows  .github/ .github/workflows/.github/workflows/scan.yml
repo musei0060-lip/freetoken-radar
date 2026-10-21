@@ -1,0 +1,53 @@
+name: Daily free-model scan
+
+on:
+  schedule:
+    - cron: "17 0 * * *"   # 00:17 UTC = 08:17 Asia/Shanghai
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run radar scan
+        run: |
+          python3 freetoken_radar.py --json | tee report.json
+          {
+            echo "## FreeToken Radar daily scan"
+            echo '```json'
+            cat report.json
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Open an issue when the pool changes
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python3 - <<'PYEOF'
+          import json, subprocess, datetime
+          r = json.load(open("report.json"))
+          vanished = r["eligible_vanished_or_repriced"]
+          new = r["new_unverified"]
+          if not vanished and not new:
+              print("No changes; no issue.")
+              raise SystemExit(0)
+          today = datetime.date.today().isoformat()
+          lines = [f"Daily scan {today} detected changes:", ""]
+          if vanished:
+              lines.append("**Eligible models vanished or repriced:**")
+              lines += [f"- `{m}`" for m in vanished] + [""]
+          if new:
+              lines.append("**New free models awaiting verification (names are not evidence):**")
+              lines += [f"- `{m}`" for m in new] + [""]
+          lines.append("Verification requires a vendor-official parameter source plus a zero-cost tool-calling probe.")
+          open("issue.md", "w").write("\n".join(lines))
+          subprocess.run(["gh", "issue", "create",
+                          "--title", f"Pool change detected {today}",
+                          "--body-file", "issue.md"], check=True)
+          PYEOF
