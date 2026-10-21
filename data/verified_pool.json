@@ -1,0 +1,145 @@
+{
+  "updated_at": "2026-10-21T01:30:00+08:00",
+  "basis_scan_checked_at": "2026-10-20T17:22:39+00:00",
+  "rules": "eligible = OpenRouter pricing all zero + total parameters >=100B verified from vendor official docs or official HF model card + independent tool-calling probe passed at cost 0. Fail closed otherwise.",
+  "eligible": [
+    {
+      "id": "thinkingmachines/inkling:free",
+      "parameters_b": 975,
+      "active_b": 41,
+      "context_length": 1048576,
+      "source_url": "https://thinkingmachines.ai/model-card/inkling/",
+      "source_quote": "975B total, 41B active",
+      "tools_verified": "pi_end_to_end_read_tool",
+      "tools_note": "Raw API chat calls return 403 (agentic harnesses only). Via Pi it answered PONG and used the read tool to return a marker file's exact content.",
+      "probe_cost": 0
+    },
+    {
+      "id": "thinkingmachines/inkling-small:free",
+      "parameters_b": 276,
+      "active_b": 12,
+      "context_length": 1048576,
+      "source_url": "https://thinkingmachines.ai/inkling/",
+      "source_quote": "276B total 12B active",
+      "tools_verified": "pi_end_to_end_read_tool",
+      "tools_note": "Raw API chat calls return 403 (agentic harnesses only). Via Pi it answered PONG and used the read tool to return a marker file's exact content.",
+      "probe_cost": 0
+    },
+    {
+      "id": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "parameters_b": 550,
+      "active_b": 55,
+      "context_length": 1000000,
+      "source_url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3-Ultra-550B-A55B-BF16",
+      "source_quote": "The model has 55B active parameters and 550B parameters in total.",
+      "tools_verified": "api_probe_tools",
+      "tools_note": "API probe-tools returned 1 get_weather tool call; plain probe returned PONG.",
+      "probe_cost": 0
+    },
+    {
+      "id": "nvidia/nemotron-3.5-super-vl:free",
+      "parameters_b": 120,
+      "active_b": 12,
+      "context_length": 1000000,
+      "source_url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3.5-Super-VL-120B-A12B-NVFP4",
+      "source_quote": "It has 120B total parameters and 12B active parameters and supports context lengths up to 1M tokens.",
+      "tools_verified": "api_probe_tools",
+      "tools_note": "API probe-tools returned 1 get_weather tool call; plain probe ok. Vision-language model.",
+      "probe_cost": 0
+    },
+    {
+      "id": "poolside/laguna-s-2.1:free",
+      "parameters_b": 118,
+      "active_b": 8,
+      "context_length": 262144,
+      "source_url": "https://huggingface.co/poolside/Laguna-S-2.1",
+      "source_quote": "Laguna S 2.1 is a 118B total parameter Mixture-of-Experts model with 8B activated parameters per token, designed for agentic coding and long-horizon work.",
+      "tools_verified": "api_probe_tools",
+      "tools_note": "API probe-tools returned 1 get_weather tool call; plain probe returned PONG.",
+      "probe_cost": 0
+    }
+  ],
+  "verified_size_unavailable": [
+    {
+      "id": "nvidia/nemotron-3-super-120b-a12b:free",
+      "parameters_b": 120,
+      "active_b": 12,
+      "source_url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3-Super-120B-A12B-BF16",
+      "source_quote": "The model has 12B active parameters and 120B parameters in total.",
+      "status": "Size verified but both plain and tools probes returned provider 404 (function not found for account) on repeated tries on 2026-10-21. Re-probe before any use."
+    }
+  ],
+  "verified_below_100b": [
+    {
+      "id": "xingchen-agi/xing4.0-29b-a4b:free",
+      "parameters_b": 29,
+      "source_url": "https://huggingface.co/XingChen-AGI/Xing4.0-29B-A4B"
+    },
+    {
+      "id": "liquid/lfm-2.5-2.6b:free",
+      "parameters_b": 2.69,
+      "source_url": "https://huggingface.co/LiquidAI/LFM2.5-2.6B-Base"
+    },
+    {
+      "id": "nvidia/nemotron-3.5-lightning:free",
+      "parameters_b": 30,
+      "source_url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-BF16"
+    },
+    {
+      "id": "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free",
+      "parameters_b": 31,
+      "source_url": "https://huggingface.co/nvidia/Nemotron-3-Nano-Omni-30B-A3B-Reasoning-BF16"
+    },
+    {
+      "id": "poolside/laguna-xs-2.1:free",
+      "parameters_b": 33,
+      "source_url": "https://huggingface.co/poolside/Laguna-XS-2.1"
+    },
+    {
+      "id": "cohere/north-mini-code:free",
+      "parameters_b": 30,
+      "source_url": "https://huggingface.co/blog/CohereLabs/introducing-north-mini-code",
+      "note": "Small but tool-capable and probed OK at cost 0. Operationally useful for light child-agent tasks, but not a flagship."
+    },
+    {
+      "id": "google/gemma-4-26b-a4b-it:free",
+      "parameters_b": 25.2,
+      "source_url": "https://ai.google.dev/gemma/docs/core/model_card_4"
+    },
+    {
+      "id": "google/gemma-4-31b-it:free",
+      "parameters_b": 30.7,
+      "source_url": "https://ai.google.dev/gemma/docs/core/model_card_4"
+    }
+  ],
+  "unverified": [
+    {
+      "id": "minimax/minimax-m3.1-flash:free",
+      "status": "No parameter count in MiniMax official blog, agent page, API docs, or an official HF model card as of 2026-10-21. Third-party numbers conflict (428B, 456B) and are not trusted. Stays out of eligible until an official source publishes the size."
+    },
+    {
+      "id": "dots-studio/dots-3-note-preview:free",
+      "status": "No official HF model card or vendor technical report found as of 2026-10-21. Third parties claim 280B total / 16B active, not from an accepted source. Stays out of eligible."
+    }
+  ],
+  "not_single_model": [
+    {
+      "id": "openrouter/free",
+      "status": "Free Models Router that randomly selects a free model per request (OpenRouter docs). No single parameter count, never eligible as a flagship."
+    }
+  ],
+  "excluded_non_llm": [
+    {
+      "id": "google/lyria-3-clip-preview",
+      "status": "Music generation model, not a chat/agent LLM."
+    },
+    {
+      "id": "google/lyria-3-pro-preview",
+      "status": "Music generation model, not a chat/agent LLM."
+    },
+    {
+      "id": "nvidia/nemotron-3.5-content-safety:free",
+      "status": "Content-safety classifier, not a general agent LLM."
+    }
+  ]
+}
